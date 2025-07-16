@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧾 Symptom Solutions & Recommendations</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffffee;
+      max-width: 750px;
+      width: 90%;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+      margin: 40px auto;
+    }
+
+    h2 {
+      color: #d63031;
+      text-align: center;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #2d3436;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    button, a.button-link {
+      padding: 12px 18px;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    button:hover, a.button-link:hover {
+      background-color: #019875;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ffeaa7;
+      color: #d63031;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .meta {
+      font-size: 0.9em;
+      color: #636e72;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="solutionContent">
+    <h2>🧾 Symptom Solutions & Recommendations</h2>
+
+    <h3>🩺 Recommendation:</h3>
+    <p id="recommendation">Loading...</p>
+
+    <h3>🔁 Related Symptoms:</h3>
+    <ul id="relatedSymptoms">
+      <li>Loading...</li>
+    </ul>
+
+    <h3>🩸 Severity Level:</h3>
+    <div id="severityLevel" class="tag">Unknown</div>
+
+    <h3>🧠 Possible Causes:</h3>
+    <p id="cause">Loading...</p>
+
+    <h3>💡 First-Aid Tips:</h3>
+    <ul id="tipsList">
+      <li>Loading...</li>
+    </ul>
+
+    <div class="meta" id="reportTime"></div>
+
+    <div class="button-group">
+      <a href="doctor.html" class="button-link">➡️ View Nearby Emergency Doctors</a>
+      <button onclick="downloadPDF()">📄 Save as PDF</button>
+      <button onclick="shareWhatsApp()">📤 Share via WhatsApp</button>
+      <button onclick="emailReport()">📧 Email This Report</button>
+      <a href="symptoms.html" class="button-link">🔁 Report Another Symptom</a>
+      <a href="index.html" class="button-link">🏠 Home</a>
+    </div>
+  </div>
+
+  <script>
+    const recommendation = JSON.parse(localStorage.getItem("latestRecommendation"));
+    const symptoms = localStorage.getItem("latestSymptoms");
+    const reportTime = localStorage.getItem("reportTime");
+    const severity = recommendation?.severity || "Not specified";
+
+    // Recommendation
+    document.getElementById("recommendation").innerText =
+      recommendation?.solution || "No recommendation available.";
+
+    // Related Symptoms
+    const relatedList = document.getElementById("relatedSymptoms");
+    relatedList.innerHTML = "";
+    if (recommendation?.relatedSymptoms?.length > 0) {
+      recommendation.relatedSymptoms.forEach(symptom => {
+        const li = document.createElement("li");
+        li.innerText = symptom;
+        relatedList.appendChild(li);
+      });
+    } else {
+      relatedList.innerHTML = "<li>No related symptoms found.</li>";
+    }
+
+    // Severity Tag
+    const severityTag = document.getElementById("severityLevel");
+    severityTag.innerText = severity;
+    if (severity.toLowerCase() === "high") {
+      severityTag.style.backgroundColor = "#fab1a0";
+    } else if (severity.toLowerCase() === "medium") {
+      severityTag.style.backgroundColor = "#ffeaa7";
+    } else if (severity.toLowerCase() === "low") {
+      severityTag.style.backgroundColor = "#b2fab4";
+    }
+
+    // Cause
+    document.getElementById("cause").innerText = recommendation?.cause || "No explanation available.";
+
+    // Tips
+    const tipsList = document.getElementById("tipsList");
+    tipsList.innerHTML = "";
+    if (recommendation?.tips?.length > 0) {
+      recommendation.tips.forEach(tip => {
+        const li = document.createElement("li");
+        li.innerText = tip;
+        tipsList.appendChild(li);
+      });
+    } else {
+      tipsList.innerHTML = "<li>No tips available.</li>";
+    }
+
+    // Report Time
+    if (reportTime) {
+      const formatted = new Date(reportTime).toLocaleString();
+      document.getElementById("reportTime").innerText = `🕒 Reported on: ${formatted}`;
+    }
+
+    // PDF Download
+    function downloadPDF() {
+      const content = document.getElementById("solutionContent").innerText;
+      const blob = new Blob([content], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Symptom_Report.txt";
+      link.click();
+    }
+
+    // WhatsApp Share
+    function shareWhatsApp() {
+      const message = `🧾 Symptom Report\n\n🩺 Recommendation:\n${recommendation?.solution || "N/A"}\n\n🔁 Related Symptoms:\n${recommendation?.relatedSymptoms?.join(', ') || "None"}\n\n🩸 Severity: ${severity}\n🕒 Time: ${reportTime || "N/A"}`;
+      const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, "_blank");
+    }
+
+    // Email Share
+    function emailReport() {
+      const subject = "My First Aid Assistant Symptom Report";
+      const body = `🧾 Symptom Report\n\n🩺 Recommendation:\n${recommendation?.solution || "N/A"}\n\n🔁 Related Symptoms:\n${recommendation?.relatedSymptoms?.join(', ') || "None"}\n\n🩸 Severity: ${severity}\n🕒 Time: ${reportTime || "N/A"}`;
+      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+
+</body>
+</html>

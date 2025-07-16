@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📅 Book Appointment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+      color: #d63031;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      margin-top: 20px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+
+    .success {
+      background-color: #dff9e2;
+      color: #2d6a4f;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .home-link a {
+      text-decoration: none;
+      color: #d63031;
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    .home-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📅 Book Appointment</h2>
+
+    <form id="appointmentForm" onsubmit="submitAppointment(event)">
+      <label for="doctor">Doctor</label>
+      <input type="text" id="doctor" value="Dr. Anjali Rao" readonly>
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" required placeholder="Enter your name">
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required placeholder="Enter your phone number">
+
+      <label for="date">Preferred Date</label>
+      <input type="date" id="date" required>
+
+      <label for="slot">Time Slot</label>
+      <select id="slot" required>
+        <option value="">Select a slot</option>
+        <option value="9:00 AM – 10:00 AM">9:00 AM – 10:00 AM</option>
+        <option value="10:30 AM – 11:30 AM">10:30 AM – 11:30 AM</option>
+        <option value="2:00 PM – 3:00 PM">2:00 PM – 3:00 PM</option>
+        <option value="4:00 PM – 5:00 PM">4:00 PM – 5:00 PM</option>
+      </select>
+
+      <label for="notes">Notes (Optional)</label>
+      <textarea id="notes" rows="3" placeholder="Any additional information..."></textarea>
+
+      <button type="submit">📤 Submit Appointment</button>
+    </form>
+
+    <div id="confirmation" class="success" style="display:none;">
+      ✅ Appointment successfully submitted!
+    </div>
+
+    <div class="home-link" style="display: none;" id="homeLink">
+      <a href="index.html">🏠 Return to Home</a>
+    </div>
+  </div>
+
+  <script>
+    function submitAppointment(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const date = document.getElementById("date").value;
+      const slot = document.getElementById("slot").value;
+      const notes = document.getElementById("notes").value.trim();
+      const doctor = document.getElementById("doctor").value;
+
+      if (!name || !phone || !date || !slot) {
+        alert("❌ Please fill all required fields.");
+        return;
+      }
+
+      const data = {
+        doctor,
+        name,
+        phone,
+        date,
+        slot,
+        notes
+      };
+
+      console.log("✅ Appointment Submitted:", data);
+
+      // Example: send to backend (uncomment when server ready)
+      // fetch("http://localhost:3000/appointments", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(data)
+      // });
+
+      document.getElementById("appointmentForm").reset();
+      document.getElementById("confirmation").style.display = "block";
+      document.getElementById("homeLink").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

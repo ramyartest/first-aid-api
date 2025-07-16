@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>👨‍⚕️ Nearby Emergency Doctors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #d63031;
+      margin-bottom: 30px;
+    }
+
+    .doctor-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .doctor-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+
+    .doctor-card:hover {
+      transform: scale(1.02);
+    }
+
+    .doctor-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .doctor-card h3 {
+      margin: 0;
+      color: #2d3436;
+    }
+
+    .doctor-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #888;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>👨‍⚕️ Nearby Emergency Doctors</h2>
+
+  <div class="doctor-list" id="doctorList"></div>
+
+  <div class="footer">© 2025 First Aid Assistant</div>
+
+  <script>
+    const doctors = [
+      {
+        name: "Dr. Anjali Rao",
+        specialization: "Emergency Medicine",
+        location: "Fortis Hospital, Mumbai",
+        phone: "+91 98765 43210"
+      },
+      {
+        name: "Dr. Vikram Mehta",
+        specialization: "Cardiologist",
+        location: "Apollo Hospital, Chennai",
+        phone: "+91 91234 56789"
+      },
+      {
+        name: "Dr. Sneha Iyer",
+        specialization: "Neurologist",
+        location: "Manipal Hospital, Bengaluru",
+        phone: "+91 90123 45678"
+      },
+      {
+        name: "Dr. Rahul Khanna",
+        specialization: "Orthopedic Surgeon",
+        location: "Max Hospital, Delhi",
+        phone: "+91 81111 22222"
+      },
+      {
+        name: "Dr. Pooja Sharma",
+        specialization: "Pulmonologist",
+        location: "AIIMS, Delhi",
+        phone: "+91 87777 33333"
+      },
+      {
+        name: "Dr. Nikhil Deshmukh",
+        specialization: "Gastroenterologist",
+        location: "Ruby Hall Clinic, Pune",
+        phone: "+91 86666 44444"
+      },
+      {
+        name: "Dr. Meera Nair",
+        specialization: "Dermatologist",
+        location: "KIMS Hospital, Kochi",
+        phone: "+91 85555 55555"
+      },
+      {
+        name: "Dr. Arvind Joshi",
+        specialization: "Psychiatrist",
+        location: "Tata Memorial, Mumbai",
+        phone: "+91 84444 66666"
+      },
+      {
+        name: "Dr. Kavya Reddy",
+        specialization: "ENT Specialist",
+        location: "Rainbow Hospital, Hyderabad",
+        phone: "+91 83333 77777"
+      }
+    ];
+
+    const doctorList = document.getElementById("doctorList");
+
+    doctors.forEach(doc => {
+      const card = document.createElement("div");
+      card.className = "doctor-card";
+
+      card.innerHTML = `
+        <a href="appointment.html?doctor=${encodeURIComponent(doc.name)}">
+          <h3>${doc.name}</h3>
+          <p>🩺 ${doc.specialization}</p>
+          <p>🏥 ${doc.location}</p>
+          <p>📞 ${doc.phone}</p>
+        </a>
+      `;
+
+      doctorList.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>

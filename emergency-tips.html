@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emergency Tips - First Aid Assistant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      color: #2d3436;
+    }
+
+    header {
+      background-color: #d63031;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    nav {
+      background-color: #ffeaa7;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #2d3436;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffffcc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .tip-section {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .tip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 10px 0;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #0984e3;
+    }
+
+    .tip-header img {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+
+    .tip-content {
+      display: none;
+      padding-left: 35px;
+      padding-bottom: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.85em;
+      color: #636e72;
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    .arrow {
+      transition: transform 0.3s;
+    }
+
+    .expanded .arrow {
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+<body>
+
+  <header>🩺 First Aid Emergency Tips</header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="symptoms.html">Symptom Checker</a>
+    <a href="doctor-contact.html">Doctor Contact</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Bleeding -->
+    <div class="tip-section">
+      <div class="tip-header" onclick="toggleTip(this)">
+        <span><img src="https://img.icons8.com/emoji/48/blood-drop-emoji.png"/> Bleeding</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="tip-content">
+        <ul>
+          <li>Apply direct pressure with a clean cloth.</li>
+          <li>Keep the injured area elevated.</li>
+          <li>If bleeding doesn't stop after 10 mins, seek emergency help.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Burns -->
+    <div class="tip-section">
+      <div class="tip-header" onclick="toggleTip(this)">
+        <span><img src="https://img.icons8.com/color/48/fire-element.png"/> Burns</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="tip-content">
+        <ul>
+          <li>Cool the burn under running water for at least 10 minutes.</li>
+          <li>Do not apply ice directly.</li>
+          <li>Cover with a clean, non-stick bandage.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Fractures -->
+    <div class="tip-section">
+      <div class="tip-header" onclick="toggleTip(this)">
+        <span><img src="https://img.icons8.com/ios-filled/50/bone.png"/> Fractures</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="tip-content">
+        <ul>
+          <li>Immobilize the affected area.</li>
+          <li>Apply ice to reduce swelling.</li>
+          <li>Seek immediate medical attention.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Choking -->
+    <div class="tip-section">
+      <div class="tip-header" onclick="toggleTip(this)">
+        <span><img src="https://img.icons8.com/ios-filled/50/cough.png"/> Choking</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="tip-content">
+        <ul>
+          <li>Ask if the person can talk or breathe.</li>
+          <li>If not, perform abdominal thrusts (Heimlich maneuver).</li>
+          <li>Call emergency services if needed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CPR -->
+    <div class="tip-section">
+      <div class="tip-header" onclick="toggleTip(this)">
+        <span><img src="https://img.icons8.com/external-flat-juicy-fish/60/000000/external-cpr-hospital-flat-flat-juicy-fish.png"/> CPR</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="tip-content">
+        <ul>
+          <li>Check responsiveness and breathing.</li>
+          <li>Call emergency services immediately.</li>
+          <li>Start chest compressions: 100–120/min.</li>
+          <li>Use AED if available.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">© 2025 First Aid Assistant | Stay Safe, Act Fast</div>
+
+  <script>
+    function toggleTip(header) {
+      const section = header.parentElement;
+      section.classList.toggle("expanded");
+
+      const content = section.querySelector(".tip-content");
+      const arrow = section.querySelector(".arrow");
+
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        arrow.textContent = "▶";
+      } else {
+        content.style.display = "block";
+        arrow.textContent = "▼";
+      }
+    }
+  </script>
+
+</body>
+</html>

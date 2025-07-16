@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>First Aid Assistant - Login & Register</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    nav {
+      width: 100%;
+      background: #d63031;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .card {
+      background: #ffffffee;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 450px;
+      width: 90%;
+      margin-top: 20px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #d63031;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #2d3436;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: #636e72;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      display: none;
+      font-size: 0.9em;
+    }
+
+    .success {
+      background-color: #dff9e2;
+      color: #09814a;
+    }
+
+    .error {
+      background-color: #ffe5e5;
+      color: #d63031;
+    }
+.feature-card {
+  background: #ffeaa7;
+  border: 2px solid #fdcb6e;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  background: #fab1a0;
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ✅ TOP NAVIGATION BAR -->
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="symptoms.html">📝 Symptom Checker</a>
+    <a href="solution.html">👨‍⚕️ Doctor Contact</a>
+    <a href="emergency-tips.html">🩺 Emergency Tips</a>
+  </nav>
+
+
+
+  <div class="card">
+    <img src="https://via.placeholder.com/450x180?text=First+Aid+Assistant" alt="Banner" />
+    <h2>🩺 First Aid Assistant</h2>
+
+    <div class="section">
+      <label for="regName">👤 Name</label>
+      <input type="text" id="regName" placeholder="Enter your name" />
+
+      <label for="regEmail">📧 Email</label>
+      <input type="email" id="regEmail" placeholder="Enter your email" />
+
+      <label for="regPhone">📱 Phone</label>
+      <input type="tel" id="regPhone" placeholder="Enter your phone number" />
+
+      <button onclick="registerUser()">🆕 Register</button>
+    </div>
+
+    <div class="section">
+      <label for="loginName">👤 Enter Your Name (Login)</label>
+      <input type="text" id="loginName" placeholder="Enter your name to login" />
+
+      <button onclick="loginUser()">➡️ Login</button>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="footer">© 2025 First Aid Assistant</div>
+  </div>
+
+  <script>
+    async function registerUser() {
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const phone = document.getElementById("regPhone").value.trim();
+      const msg = document.getElementById("message");
+
+      if (!name || !email || !phone) {
+        return showMessage("❌ Please fill all fields for registration.", "error");
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/insertuser", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, phone })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem("userId", data.userId);
+          localStorage.setItem("userName", name);
+          showMessage("✅ Registration successful! Redirecting...", "success");
+          setTimeout(() => window.location.href = "symptoms.html", 1500);
+        } else {
+          showMessage(`❌ ${data.error || "Registration failed."}`, "error");
+        }
+      } catch (err) {
+        showMessage("❌ Server error during registration.", "error");
+      }
+    }
+
+    async function loginUser() {
+      const name = document.getElementById("loginName").value.trim();
+      const msg = document.getElementById("message");
+
+      if (!name) {
+        return showMessage("❌ Please enter your name to login.", "error");
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/users");
+        const users = await res.json();
+
+        const user = users.find(u => u.name.toLowerCase() === name.toLowerCase());
+        if (user) {
+          localStorage.setItem("userId", user._id);
+          localStorage.setItem("userName", user.name);
+          showMessage("✅ Login successful!", "success");
+          setTimeout(() => window.location.href = "symptoms.html", 1200);
+        } else {
+          showMessage("❌ No user found with that name.", "error");
+        }
+      } catch (err) {
+        showMessage("❌ Failed to connect to server.", "error");
+      }
+    }
+
+    function showMessage(text, type) {
+      const msg = document.getElementById("message");
+      msg.className = `message ${type}`;
+      msg.innerText = text;
+      msg.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
