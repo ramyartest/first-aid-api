@@ -12,6 +12,10 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(express.static(__dirname));  // <-- Add this line
+
+app.use('/image', express.static('image'));
+
 // 4. MongoDB Setup
 const client = new MongoClient("mongodb://localhost:27017");
 let db;

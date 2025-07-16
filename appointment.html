@@ -5,16 +5,24 @@
   <title>📅 Book Appointment</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
       margin: 0;
+      padding: 0;
+    }
+
+    #appointmentContainer {
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
       padding: 30px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.5s ease-in-out;
     }
 
     .container {
       max-width: 600px;
       margin: auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 6px 15px rgba(0,0,0,0.15);
@@ -85,14 +93,14 @@
     }
   </style>
 </head>
-<body>
+<body id="appointmentContainer">
 
   <div class="container">
     <h2>📅 Book Appointment</h2>
 
     <form id="appointmentForm" onsubmit="submitAppointment(event)">
       <label for="doctor">Doctor</label>
-      <input type="text" id="doctor" value="Dr. Anjali Rao" readonly>
+      <input type="text" id="doctor" value="" readonly>
 
       <label for="name">Your Name</label>
       <input type="text" id="name" required placeholder="Enter your name">
@@ -134,7 +142,6 @@
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const date = document.getElementById("date").value;
-      const slot = document.getElementById("slot").value;
       const notes = document.getElementById("notes").value.trim();
       const doctor = document.getElementById("doctor").value;
 
@@ -143,27 +150,35 @@
         return;
       }
 
-      const data = {
-        doctor,
-        name,
-        phone,
-        date,
-        slot,
-        notes
-      };
-
+      const data = { doctor, name, phone, date, slot, notes };
       console.log("✅ Appointment Submitted:", data);
-
-      // Example: send to backend (uncomment when server ready)
-      // fetch("http://localhost:3000/appointments", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data)
-      // });
 
       document.getElementById("appointmentForm").reset();
       document.getElementById("confirmation").style.display = "block";
       document.getElementById("homeLink").style.display = "block";
+    }
+
+    // 🌄 Set Background Based on Doctor
+    const doctorImages = {
+      "Dr. Anjali Rao": "image/1.jpg",
+      "Dr. Meena Kumari": "image/2.jpg",
+      "Dr. John Deo": "image/3.jpg",
+      "Dr. Priya Singh": "image/4.jpg",
+      "Dr. Kiran Patel": "image/5.jpg",
+      "Dr. Neha Sharma": "image/6.jpg",
+      "Dr. Amit Verma": "image/7.jpg"
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const doctorFromUrl = urlParams.get("doctor");
+    const container = document.getElementById("appointmentContainer");
+
+    if (doctorFromUrl && doctorImages[doctorFromUrl]) {
+      document.getElementById("doctor").value = doctorFromUrl;
+      container.style.backgroundImage = `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages[doctorFromUrl]}')`;
+    } else {
+      document.getElementById("doctor").value = "Dr. Anjali Rao";
+      container.style.backgroundImage = `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages["Dr. Anjali Rao"]}')`;
     }
   </script>
 

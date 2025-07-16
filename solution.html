@@ -5,16 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🧾 Symptom Solutions & Recommendations</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #dfe6e9; /* optional fallback background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    background: url('image/9.jpg') no-repeat center center;
+    background-size: cover;
+    color: #2d3436;
+    max-width: 750px;
+    width: 90%;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    margin: 40px auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Optional: Add overlay to make text readable */
+  .container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    z-index: -1;
+  }
 
     .container {
       background-color: #ffffffee;
