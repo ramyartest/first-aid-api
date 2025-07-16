@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
+const path = require("path");
 
 // 2. Express App Setup
 const app = express();
@@ -12,9 +13,9 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname));  // <-- Add this line
+app.use(express.static(path.join(__dirname)));
 
-app.use('/image', express.static('image'));
+app.use('/image', express.static(path.join(__dirname, 'image')));
 
 // 4. MongoDB Setup
 const client = new MongoClient("mongodb://localhost:27017");

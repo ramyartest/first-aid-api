@@ -5,12 +5,32 @@
   <title>👨‍⚕️ Nearby Emergency Doctors</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f8f9fa;
-      margin: 0;
-      padding: 20px;
-    }
+    html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: url("/image/11.jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .card {
+    background: #ffffffee;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    max-width: 450px;
+    width: 90%;
+    margin-top: 20px;
+  }
 
     h2 {
       text-align: center;

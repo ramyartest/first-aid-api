@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>📅 Book Appointment</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
     }
 
     #appointmentContainer {
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      padding: 30px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 0.5s ease-in-out;
-    }
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  padding: 30px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
     .container {
       max-width: 600px;
@@ -138,10 +142,10 @@
   <script>
     function submitAppointment(event) {
       event.preventDefault();
-
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const date = document.getElementById("date").value;
+      const slot = document.getElementById("slot").value;
       const notes = document.getElementById("notes").value.trim();
       const doctor = document.getElementById("doctor").value;
 
@@ -158,15 +162,17 @@
       document.getElementById("homeLink").style.display = "block";
     }
 
-    // 🌄 Set Background Based on Doctor
+    // Set Background Based on Doctor
     const doctorImages = {
-      "Dr. Anjali Rao": "image/1.jpg",
-      "Dr. Meena Kumari": "image/2.jpg",
-      "Dr. John Deo": "image/3.jpg",
-      "Dr. Priya Singh": "image/4.jpg",
-      "Dr. Kiran Patel": "image/5.jpg",
-      "Dr. Neha Sharma": "image/6.jpg",
-      "Dr. Amit Verma": "image/7.jpg"
+      "Dr. Anjali Rao": "image/hospital.jpg",
+      "Dr. Vikram Mehta": "image/2.jpg",
+      "Dr. Sneha Iyer": "image/3.jpg",
+      "Dr. Rahul Khanna": "image/4.jpg",
+      "Dr. Pooja Sharma": "image/5.jpg",
+      "Dr. Nikhil Deshmukh": "image/6.jpg",
+      "Dr. Meera Nair": "image/7.jpg",
+      "Dr. Arvind Joshi": "image/8.jpg",
+      "Dr. Kavya Reddy": "image/9.jpg"
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -175,10 +181,12 @@
 
     if (doctorFromUrl && doctorImages[doctorFromUrl]) {
       document.getElementById("doctor").value = doctorFromUrl;
-      container.style.backgroundImage = `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages[doctorFromUrl]}')`;
+      container.style.backgroundImage =
+        `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages[doctorFromUrl]}')`;
     } else {
       document.getElementById("doctor").value = "Dr. Anjali Rao";
-      container.style.backgroundImage = `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages["Dr. Anjali Rao"]}')`;
+      container.style.backgroundImage =
+        `linear-gradient(to right, #e0f7fa, #b2ebf2), url('${doctorImages["Dr. Anjali Rao"]}')`;
     }
   </script>
 
